@@ -1,34 +1,6 @@
 import { ListEntry } from '../ListEntry/ListEntry';
 import React, { useState } from 'react';
-// Match highlighted value according to following rule:
-// take hovered item (can be from either bids or asks) and compute: Math.abs(hovered - closestToFairPriceValue)
-// and then try to find value closest to abovementioned difference, but in second list, so for example
-// if I compared vale 4200 to 4100 from asks, I have to find difference closest to 100 from bids.
-
-const closestDifference = (data, targetDiffence, comparator) => {
-  const closest = data.reduce(
-    (accumulator, current, currentIndex) => {
-      const { price } = current;
-      const { value, index } = accumulator;
-
-      const currentToTargetDifference = Math.abs(
-        Math.abs(comparator - price) - targetDiffence
-      );
-      // console.log('\n current iteration value ', price);
-      // console.log('\n currenttotargetdifference::', currentToTargetDifference);
-
-      return value > currentToTargetDifference
-        ? {
-            value: currentToTargetDifference,
-            index: currentIndex,
-          }
-        : accumulator;
-    },
-    { value: Infinity, index: -1 }
-  );
-  console.log('\n\nso the closest value is:', closest);
-  return closest.index;
-};
+import { closestDifferenceIndex } from './closestDifference';
 
 export const Orderbook = ({ asks, bids }) => {
   const ASKS = 'ASKS';
@@ -36,30 +8,24 @@ export const Orderbook = ({ asks, bids }) => {
   const [activeAsks, setActiveAsks] = useState();
   const [activeBids, setActiveBids] = useState();
 
-  const getActive = (category) => (indexHovered) => {
+  const getActive = (side) => (indexHovered) => {
     let target = 0;
-    let comparator = 0;
-    if (category === ASKS) {
+    const asksComparator = asks[asks.length - 1].price;
+    const bidsComparator = bids[0].price;
+
+    if (side === ASKS) {
       setActiveAsks(indexHovered);
-      comparator = asks[asks.length - 1].price;
-      target = Math.abs(comparator - asks[indexHovered].price);
-      setActiveBids(closestDifference(bids, target, comparator));
+      target = Math.abs(asks[asks.length - 1].price - asks[indexHovered].price);
+      setActiveBids(closestDifferenceIndex(bids, target, bidsComparator));
     } else {
       setActiveBids(indexHovered);
-      comparator = bids[0].price;
-      target = Math.abs(comparator - bids[indexHovered].price);
-      setActiveAsks(closestDifference(asks, target, comparator));
+      target = Math.abs(bids[0].price - bids[indexHovered].price);
+      setActiveAsks(closestDifferenceIndex(asks, target, asksComparator));
     }
   };
 
-  // console.log('\n\ncheck if highlight', category=== ASKS ? index === activeAsks : index === activeBids)
-
-  const mapDataToList = (data, category) =>
+  const mapDataToList = (data, side) =>
     data.map(({ price, amount, cumulativeAmount }, index) => {
-      console.log(
-        '\n\ncheck if highlight',
-        category === ASKS ? index === activeAsks : index === activeBids
-      );
       return (
         <ListEntry
           price={price}
@@ -68,10 +34,11 @@ export const Orderbook = ({ asks, bids }) => {
           index={index}
           key={`${index}:${price}`}
           compareTo
+          side={side}
           forceEmphasis={index === 0 || index === data.length - 1}
-          onMouseOver={category === ASKS ? getActive(ASKS) : getActive(BIDS)}
+          onMouseOver={side === ASKS ? getActive(ASKS) : getActive(BIDS)}
           highlight={
-            category === ASKS ? index === activeAsks : index === activeBids
+            side === ASKS ? index === activeAsks : index === activeBids
           }
         />
       );
