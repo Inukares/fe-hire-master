@@ -11,20 +11,4 @@ describe('sortData', () => {
     const expected = ['8000.5', '5000.0', '4003.1', '4000.2', '3996.5'];
     expect(sortData(array)).toEqual(expected);
   });
-
-  it('sorts array with numbers in scientific notation', () => {
-    const array = ['3992.4', '4000.5', '3998.6', '3995.231e.301'];
-    const expected = ['3995.231e+301', '4000.5', '3998.6', '3992.4'];
-    expect(sortData(array)).toEqual(expected);
-  });
 });
-
-// import { mockParsedAsks } from '../../hooks/useMessage/tests/dataMock';
-// import { parseExponents } from '../../hooks/useMessage/parseExponents';
-// const test = require('ava');
-//
-// test('parseExponents', (t) => {
-//   const parsedMock = mockAsks.map(([price, _]) => [parseExponents(price), _]);
-//
-//   t.deepEqual(parsedMock, mockParsedAsks);
-// });

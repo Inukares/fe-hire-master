@@ -1,4 +1,4 @@
-export const calculateCumulativeAmount = (data, reverse) => {
+export const computeCumulativeAmount = (data, reverse) => {
   let sum = 0;
   let newData = [];
 

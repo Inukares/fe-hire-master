@@ -12,8 +12,6 @@ export const round = (number, precision) =>
         Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision)
       ).toFixed(precision);
 
-// sort desc with merge sort. As there's very small chance that the data is sorted quicksort could be faster on average
-// although I'll stay with the default for simplicity
 export const sortData = (data) => {
   const precision = 3;
   const scale = 1000;
