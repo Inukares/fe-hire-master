@@ -1,6 +1,7 @@
 import React from 'react';
 import { divideOnDot } from './divideOnDot';
 import { ASKS } from '../constants';
+import { getDistinctOrder } from './getDistinctOrder';
 
 export const Entry = ({
   price,
@@ -18,7 +19,9 @@ export const Entry = ({
     significantCumulativeAmount,
     insignificantCumulativeAmount,
   ] = divideOnDot(cumulativeAmount);
-  const humanReadablePrice = price > 99999999999 ? '<99999999999' : price;
+  const humanReadablePrice = (price) =>
+    price > 99999999999 ? '<99999999999' : price;
+  const { same, distinct } = getDistinctOrder(price, compareTo);
 
   const renderPrice = forceEmphasis ? (
     <span
@@ -26,7 +29,7 @@ export const Entry = ({
         side === ASKS ? 'color-short' : 'color-long'
       } cursor-pointer`}
     >
-      {humanReadablePrice}
+      {humanReadablePrice(price)}
     </span>
   ) : (
     <span
@@ -34,7 +37,8 @@ export const Entry = ({
         side === ASKS ? 'color-short' : 'color-long'
       } cursor-pointer`}
     >
-      {humanReadablePrice}
+      <span className={'opacity-55'}>{same}</span>
+      {humanReadablePrice(distinct)}
     </span>
   );
 
