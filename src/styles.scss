@@ -7,13 +7,19 @@
 html, body {
   height: 100%;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Droid Sans Mono, monospace;
   color: $text;
-  background-color: $bg; // $background
+  background-color: $bg;
 }
 
 #app {
   height: 100%;
+}
+
+.selected-price {
+  height: 100px;
+  text-align: center;
+  margin: -20px auto;
 }
 
 .page-container {
@@ -24,46 +30,20 @@ html, body {
   align-items: center;
 }
 
-
 .orderbook {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  //height: 100%
 }
 
 ul {
   margin: 0;
-  padding: 0
+  padding: 0;
+  li:first-child {
+    margin-top: 0
+  }
 }
-
-#trades-feed {
-  flex: 1;
-  flex-direction: column;
-  display: flex;
-  min-height: 0;
-  width: 100%
-}
-
-.sidebar_col {
-  width: 238px;
-  margin: 0;
-  border-left: 1px solid $borderWeak;
-}
-
-.sidebar__col__cells {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar__col__cell.sidebar__col__cell--fixed-height {
-  flex-grow: 0;
-  min-height: 426px;
-  // overflow: hidden // perhaps add
-}
-
 
 .cursor-pointer {
   cursor: pointer;
@@ -73,124 +53,86 @@ ul {
   opacity: .55;
 }
 
-
-// for initial render?
-.order-list-placeholder {
-  line-height: 200px;
-  width: 100%;
-  text-align: center
-}
-
-ul li:first-child {
-  margin-top: 0
-}
-
 .order-list-entry {
-  overflow: hidden
-}
+  overflow: hidden;
 
-.order-list-entry-enter.order-list-entry-enter-active {
-  height: 15px;
-  background-color: transparent
-}
+  li {
+    height: 13.2px;
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
 
-.order-list-entry li {
-  height: 13.2px
-}
+    &:hover {
+      background-color: $highlight
+    }
+    .price {
+      width: 55px;
+      text-align: right
+    }
 
-.order-list-entry li {
-  display: flex;
-  justify-content: space-between;
-  width: 220px
-}
-.order-list-entry li:hover {
-  background-color: $highlight
-}
+    .amount-component {
+      text-align: right;
+      width: 77.5px
+    }
 
-.order-list-entry li .price {
-  width: 55px;
-  text-align: right
-}
-
-.order-list-entry li .amount-component {
-  text-align: right;
-  width: 77.5px
-}
-
-.sidebar__col--large .order-list-entry li .amount-component {
-  width: 85px
-}
-
-.feed li {
-  list-style-type: none;
-  font-size: 11px;
-  letter-spacing: -1px;
-  font-family: Droid Sans Mono, monospace
-}
-
-.orders-container {
-  height: 100%;
-  border-bottom: $borderWeak
+  }
 }
 
 .orders-list {
   height: 198px;
   display: flex;
   padding: 0 10px 0 5px;
-}
-
-.orders-list .feed {
   position: relative;
-}
 
-.orders-list .feed .feed-list {
-  flex-direction: column;
-  display: flex;
-  height: 100%;
-  min-height: 100%;
-  width: 100%;
-  overflow: hidden
+  .feed {
+    position: relative;
+
+    li {
+      list-style-type: none;
+      font-size: 11px;
+      letter-spacing: -1px;
+    }
+
+    .feed-list {
+      flex-direction: column;
+      display: flex;
+      height: 100%;
+      min-height: 100%;
+      width: 100%;
+      overflow: hidden;
+      &.asks {
+        justify-content: flex-end;
+      }
+      &.bids {
+        justify-content: flex-start
+      }
+    }
+
+  }
+
 }
 
 .color-short {
   color: $short;
 }
 
-//body #asks-list ul li .order-price {
-//  color: $short;
-//}
+.color-long {
+  color: $long
+}
 
 .highlight {
   background-color: $highlight;
 }
 
-body #asks-list ul li .order-price.emphasis:not(.highlight) {
-  background-color: var(--COLOR-rgba-short-10)
-}
-
-.orders-list .feed .feed-list.asks {
-  justify-content: flex-end;
-}
-
-.orders-list .feed .feed-list.bids {
-  justify-content: flex-start
-}
-
 .amount-component {
-  transition: color .3s ease-in-out, background-color .2s ease-in-out;
-  -moz-transition: color .3s ease-in-out, background-color .2s ease-in-out;
-  -webkit-transition: color .3s ease-in-out, background-color .2s ease-in-out;
-  white-space: nowrap
+  white-space: nowrap;
+  .weak {
+    opacity: 0.75;
+  }
 }
-
 
 .weak {
    color: $textWeak;
-}
-
-.amount-component .weak,
-.amount-component weak {
-  opacity: .75
 }
 
 #price-ticker {
@@ -202,9 +144,8 @@ body #asks-list ul li .order-price.emphasis:not(.highlight) {
   line-height: 28px;
   font-family: Droid Sans Mono, monospace;
   overflow: hidden;
-  cursor: pointer
-}
-
-#price-ticker:hover {
-  background-color: $cta;
+  cursor: pointer;
+  &:hover {
+    background-color: $cta;
+  }
 }
