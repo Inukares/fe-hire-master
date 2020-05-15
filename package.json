@@ -4,10 +4,9 @@
   "description": "CW Front End Hiring Challenge",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 9080 --mode development --open",
-    "build": "webpack --mode production",
-    "test": "jest",
-    "watch:test": "ava --watch"
+    "start": "webpack --mode production",
+    "start:dev": "webpack-dev-server --port 9080 --mode development --open",
+    "test": "jest"
   },
   "author": "Cryptowatch",
   "license": "ISC",

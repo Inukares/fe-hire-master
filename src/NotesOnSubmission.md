@@ -48,7 +48,12 @@ It's also worth noting that in real world scenario it doesn't seem very likely f
 that anybody's that rich :). As I knew that there will be only one so huge number on one side (asks/bids) I didn't deal in the code
 with comparing numbers that are bigger than 2^53-1.
 
-#### Optimisations
-`closestDifference.js` iterates over all items in the list, but in fact it's not necessary as the data is sorted in descending
+#### Optimisations and improvements
+- This submission lacks type-checking of any kind. There are several options to choose from to solve this, but for
+this size of the application and requirement to not put any additional libraries I decided to not focus on this topic.
+
+
+
+- `closestDifference.js` iterates over all items in the list, but in fact it's not necessary as the data is sorted in descending
 order it's possible to use modified version of binary search to solve the problem. It's still just 15 entries to check though, so it's
 not a real issue.
