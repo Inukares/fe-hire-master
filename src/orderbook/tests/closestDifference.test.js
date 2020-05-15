@@ -43,14 +43,4 @@ describe('closestDifferenceIndex', () => {
       expected
     );
   });
-
-  it('correctly returns closest difference index, even targetDifference is huge', () => {
-    const targetDifference =
-      '4.0102920313686714e+31001001000010010010011101010000010100010001101110101000011001110010101001010';
-    const comparator = asksComparator;
-    const expected = 0;
-    expect(closestDifferenceIndex(asks, targetDifference, comparator)).toEqual(
-      expected
-    );
-  });
 });

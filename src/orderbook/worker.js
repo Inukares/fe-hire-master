@@ -22,7 +22,7 @@ const initializeOrderbook = () => {
   return orderbook;
 };
 
-const run = orderbook => {
+const run = (orderbook) => {
   let tradeCount = 0;
   return setInterval(() => {
     const randomRange = randomNumber(0, 10);

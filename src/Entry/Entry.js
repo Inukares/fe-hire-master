@@ -13,6 +13,7 @@ export const Entry = ({
   side,
   highlight,
   onMouseOver,
+  handleClickPrice,
 }) => {
   const [significantAmount, insignificantAmount] = divideOnDot(amount);
   const [
@@ -20,7 +21,7 @@ export const Entry = ({
     insignificantCumulativeAmount,
   ] = divideOnDot(cumulativeAmount);
   const humanReadablePrice = (price) =>
-    price > 99999999999 ? '<99999999999' : price;
+    price > 9999999999 ? '<9999999999.0' : price;
   const { same, distinct } = getDistinctOrder(price, compareTo);
 
   const renderPrice = forceEmphasis ? (
@@ -43,18 +44,19 @@ export const Entry = ({
   );
 
   return (
-    <div
-      onMouseOver={() => onMouseOver(index)}
-      onMouseLeave={() => onMouseOver(-1)}
-      className={'order-list-entry'}
-    >
-      <li className={`${highlight ? 'highlight' : ''}`}>
+    <div className={'order-list-entry'}>
+      <li
+        onMouseOver={() => onMouseOver(index)}
+        onMouseLeave={() => onMouseOver(-1)}
+        onClick={() => handleClickPrice(price)}
+        className={`${highlight ? 'highlight' : ''}`}
+      >
         {renderPrice}
-        <div className={['amount-component', 'cursor-pointer'].join(' ')}>
+        <div className={'amount-component cursor-pointer'}>
           <span>{significantAmount}</span>
           <span className="weak">{insignificantAmount}</span>
         </div>
-        <div className={['amount-component', 'cursor-pointer'].join(' ')}>
+        <div className={'amount-component cursor-pointer'}>
           <span>{significantCumulativeAmount}</span>
           <span className="weak">{insignificantCumulativeAmount}</span>
         </div>

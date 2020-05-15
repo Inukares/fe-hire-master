@@ -2,7 +2,13 @@ import React from 'react';
 import { Entry } from './Entry';
 import { ASKS, BIDS } from '../constants';
 
-export const mapDataToListEntry = ({ data, side, onMouseOver, activeIndex }) =>
+export const mapDataToListEntry = ({
+  data,
+  side,
+  onMouseOver,
+  activeIndex,
+  handleClickPrice,
+}) =>
   data.map(({ price, amount, cumulativeAmount }, index) => {
     let compareTo = '';
     const lastOrFirstIndex = index === 0 || index === data.length - 1;
@@ -12,6 +18,7 @@ export const mapDataToListEntry = ({ data, side, onMouseOver, activeIndex }) =>
     if (side === BIDS && !lastOrFirstIndex) {
       compareTo = data[index - 1].price;
     }
+
     return (
       <Entry
         price={price}
@@ -21,6 +28,7 @@ export const mapDataToListEntry = ({ data, side, onMouseOver, activeIndex }) =>
         key={`${index}:${price}`}
         compareTo={compareTo}
         side={side}
+        handleClickPrice={handleClickPrice}
         forceEmphasis={lastOrFirstIndex}
         onMouseOver={onMouseOver}
         highlight={

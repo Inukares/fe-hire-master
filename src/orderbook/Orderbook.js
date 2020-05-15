@@ -4,7 +4,9 @@ import { closestDifferenceIndex } from './closestDifference';
 import { computeFairPrice } from './computeFairPrice';
 import { ASKS, BIDS } from '../constants';
 
-export const Orderbook = ({ asks, bids }) => {
+export const Orderbook = (props) => {
+  const { asks, bids } = props.data;
+  const { handleClickPrice } = props;
   const [activeAsks, setActiveAsks] = useState();
   const [activeBids, setActiveBids] = useState();
   const fairPrice = computeFairPrice({ asks, bids });
@@ -33,10 +35,11 @@ export const Orderbook = ({ asks, bids }) => {
     side: ASKS,
     onMouseOver: getActive(ASKS),
     activeIndex: activeAsks,
+    handleClickPrice,
   });
 
   const asksList = (
-    <div className={'orders-list'} id={'asks-list'}>
+    <div className={'orders-list'}>
       <div className={'feed'}>
         <ul className={'feed-list asks'}>
           <div>{asksEntryList}</div>
@@ -50,10 +53,11 @@ export const Orderbook = ({ asks, bids }) => {
     side: BIDS,
     onMouseOver: getActive(BIDS),
     activeIndex: activeBids,
+    handleClickPrice,
   });
 
   const bidsList = (
-    <div className={'orders-list'} id={'bids-list'}>
+    <div className={'orders-list'}>
       <div className={'feed'}>
         <ul className={'feed-list bids'}>
           <div>{bidsEntryList}</div>
@@ -63,14 +67,12 @@ export const Orderbook = ({ asks, bids }) => {
   );
 
   const orderbook = (
-    <div className={'orders-container'}>
-      <div className={'orderbook'}>
-        {asksList}
-        <div id={'price-ticker'}>
-          <span>{fairPrice}</span>
-        </div>
-        {bidsList}
+    <div className={'orderbook'}>
+      {asksList}
+      <div id={'price-ticker'}>
+        <span>{fairPrice}</span>
       </div>
+      {bidsList}
     </div>
   );
 
