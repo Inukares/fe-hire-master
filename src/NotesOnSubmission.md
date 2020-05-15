@@ -52,7 +52,7 @@ with comparing numbers that are bigger than 2^53-1.
 - This submission lacks type-checking of any kind. There are several options to choose from to solve this, but for
 this size of the application and requirement to not put any additional libraries I decided to not focus on this topic.
 
-
+- Deployment is in dev mode currently, should be modified in real world scenario.
 
 - `closestDifference.js` iterates over all items in the list, but in fact it's not necessary as the data is sorted in descending
 order it's possible to use modified version of binary search to solve the problem. It's still just 15 entries to check though, so it's

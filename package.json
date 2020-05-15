@@ -4,6 +4,7 @@
   "description": "CW Front End Hiring Challenge",
   "main": "index.js",
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "start": "webpack --mode production",
     "start:dev": "webpack-dev-server --port 9080 --mode development --open",
     "test": "jest"
