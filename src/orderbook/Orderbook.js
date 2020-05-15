@@ -1,19 +1,23 @@
-import { ListEntry } from '../ListEntry/ListEntry';
+import { mapDataToListEntry } from '../Entry/mapDataToListEntry';
 import React, { useState } from 'react';
 import { closestDifferenceIndex } from './closestDifference';
+import { computeFairPrice } from './computeFairPrice';
+import { ASKS, BIDS } from '../constants';
 
 export const Orderbook = ({ asks, bids }) => {
-  const ASKS = 'ASKS';
-  const BIDS = 'BIDS';
   const [activeAsks, setActiveAsks] = useState();
   const [activeBids, setActiveBids] = useState();
+  const fairPrice = computeFairPrice({ asks, bids });
 
   const getActive = (side) => (indexHovered) => {
     let target = 0;
     const asksComparator = asks[asks.length - 1].price;
     const bidsComparator = bids[0].price;
 
-    if (side === ASKS) {
+    if (indexHovered < 0) {
+      setActiveAsks(null);
+      setActiveBids(null);
+    } else if (side === ASKS) {
       setActiveAsks(indexHovered);
       target = Math.abs(asks[asks.length - 1].price - asks[indexHovered].price);
       setActiveBids(closestDifferenceIndex(bids, target, bidsComparator));
@@ -24,27 +28,12 @@ export const Orderbook = ({ asks, bids }) => {
     }
   };
 
-  const mapDataToList = (data, side) =>
-    data.map(({ price, amount, cumulativeAmount }, index) => {
-      return (
-        <ListEntry
-          price={price}
-          amount={amount}
-          cumulativeAmount={cumulativeAmount}
-          index={index}
-          key={`${index}:${price}`}
-          compareTo
-          side={side}
-          forceEmphasis={index === 0 || index === data.length - 1}
-          onMouseOver={side === ASKS ? getActive(ASKS) : getActive(BIDS)}
-          highlight={
-            side === ASKS ? index === activeAsks : index === activeBids
-          }
-        />
-      );
-    });
-
-  const asksEntryList = mapDataToList(asks, ASKS);
+  const asksEntryList = mapDataToListEntry({
+    data: asks,
+    side: ASKS,
+    onMouseOver: getActive(ASKS),
+    activeIndex: activeAsks,
+  });
 
   const asksList = (
     <div className={'orders-list'} id={'asks-list'}>
@@ -56,7 +45,12 @@ export const Orderbook = ({ asks, bids }) => {
     </div>
   );
 
-  const bidsEntryList = mapDataToList(bids, BIDS);
+  const bidsEntryList = mapDataToListEntry({
+    data: bids,
+    side: BIDS,
+    onMouseOver: getActive(BIDS),
+    activeIndex: activeBids,
+  });
 
   const bidsList = (
     <div className={'orders-list'} id={'bids-list'}>
@@ -73,7 +67,7 @@ export const Orderbook = ({ asks, bids }) => {
       <div className={'orderbook'}>
         {asksList}
         <div id={'price-ticker'}>
-          <span>8580.2</span>
+          <span>{fairPrice}</span>
         </div>
         {bidsList}
       </div>

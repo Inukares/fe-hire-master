@@ -1,18 +1,15 @@
 import React from 'react';
+import { divideOnDot } from './divideOnDot';
+import { ASKS } from '../constants';
 
-const divideOnDot = (string) => {
-  const parts = /(\d+\.)(\d+)/.exec(string);
-  const [significantDigits, insignificantDigits] = [parts[1], parts[2]];
-  return [significantDigits, insignificantDigits];
-};
-
-export const ListEntry = ({
+export const Entry = ({
   price,
   amount,
   cumulativeAmount,
   index,
   forceEmphasis,
   compareTo,
+  side,
   highlight,
   onMouseOver,
 }) => {
@@ -22,19 +19,31 @@ export const ListEntry = ({
     insignificantCumulativeAmount,
   ] = divideOnDot(cumulativeAmount);
   const humanReadablePrice = price > 99999999999 ? '<99999999999' : price;
-  // add better rendering later
+
   const renderPrice = forceEmphasis ? (
-    <span className="price color-short cursor-pointer">
+    <span
+      className={`price ${
+        side === ASKS ? 'color-short' : 'color-long'
+      } cursor-pointer`}
+    >
       {humanReadablePrice}
     </span>
   ) : (
-    <span className="price color-short cursor-pointer">
+    <span
+      className={`price ${
+        side === ASKS ? 'color-short' : 'color-long'
+      } cursor-pointer`}
+    >
       {humanReadablePrice}
     </span>
   );
 
   return (
-    <div onMouseOver={() => onMouseOver(index)} className={'order-list-entry'}>
+    <div
+      onMouseOver={() => onMouseOver(index)}
+      onMouseLeave={() => onMouseOver(-1)}
+      className={'order-list-entry'}
+    >
       <li className={`${highlight ? 'highlight' : ''}`}>
         {renderPrice}
         <div className={['amount-component', 'cursor-pointer'].join(' ')}>
