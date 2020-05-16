@@ -49,6 +49,8 @@ that anybody's that rich :). As I knew that there will be only one so huge numbe
 with comparing numbers that are bigger than 2^53-1.
 
 #### Optimisations and improvements
+- Scss is imported as global. Could be changed to CSS-module style approach.
+
 - This submission lacks type-checking of any kind. There are several options to choose from to solve this, but for
 this size of the application and requirement to not put any additional libraries I decided to not focus on this topic.
 
