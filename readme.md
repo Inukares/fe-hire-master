@@ -1,5 +1,16 @@
 ## Cryptowatch Hiretest
 
+Heroku deployment: https://glacial-mountain-30144.herokuapp.com/
+
+
+To start locally:
+
+```sh
+npm install
+npm run start:dev
+```
+
+
 Hi there stranger!
 
 Thanks for your interest in working for us over at cryptowat.ch! We'd like the opportunity to see how you write code and solve problems similar to the ones we do, so we created this little challenge set.

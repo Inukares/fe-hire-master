@@ -4,7 +4,6 @@ import { normalize } from './normalize';
 
 export const useMessage = () => {
   const [data, setData] = useState();
-  console.log(data);
   const [worker, setWorker] = useState();
 
   const handleSetData = ({ data }) => {
