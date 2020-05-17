@@ -1,4 +1,4 @@
-import { round } from './sortData';
+import { round } from '../../utils/round';
 
 export const format = (data) =>
   data.map(({ price, amount, cumulativeAmount }) => ({

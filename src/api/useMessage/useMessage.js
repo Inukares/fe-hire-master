@@ -1,4 +1,4 @@
-import OrderbookWorker from 'worker-loader!../../orderbook/worker';
+import OrderbookWorker from 'worker-loader!./worker';
 import React, { useEffect, useState } from 'react';
 import { normalize } from './normalize';
 

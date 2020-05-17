@@ -1,6 +1,6 @@
 import React from 'react';
 import { divideOnDot } from './divideOnDot';
-import { ASKS } from '../constants';
+import { ASKS } from '../../constants';
 import { getDistinctOrder } from './getDistinctOrder';
 
 export const Entry = ({

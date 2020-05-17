@@ -2,7 +2,7 @@ import { mapDataToListEntry } from '../Entry/mapDataToListEntry';
 import React, { useState } from 'react';
 import { closestDifferenceIndex } from './closestDifference';
 import { computeFairPrice } from './computeFairPrice';
-import { ASKS, BIDS } from '../constants';
+import { ASKS, BIDS } from '../../constants';
 
 export const Orderbook = (props) => {
   const { asks, bids } = props.data;

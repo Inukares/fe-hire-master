@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './styles.scss';
-import { useMessage } from './hooks/useMessage/useMessage';
-import { Orderbook } from './orderbook/Orderbook';
+import './main.scss';
+import { useMessage } from './api/useMessage/useMessage';
+import { Orderbook } from './orderbook/Orderbook/Orderbook';
 
 const App = () => {
   const [selectedPrice, setSelectedPrice] = useState(null);

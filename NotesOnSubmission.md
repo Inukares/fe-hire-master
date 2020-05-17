@@ -34,7 +34,7 @@ it can quickly change. With that in mind it feels like imperfect representation 
 Median however takes whole dataset into account, and that's what I ended up implementing.
 
 #### Testing
-I want to mention that existing testing is far from being ideal and in real-world scenario should be improved.
+I want to mention that this solution lacks testing and in real-world scenario it should be improved.
 Initially I thought you'd like to avoid adding *any* libraries, hence I omitted it on purpose. After a mail to you though
 it became clear that only framework-like libraries are off-limits, hence only some parts of the code are tested.
 
@@ -47,6 +47,10 @@ number that can be so huge that JS believes it equals to `Infinity`, which is tr
 It's also worth noting that in real world scenario it doesn't seem very likely for the bid to be so huge, as it's very unlikely
 that anybody's that rich :). As I knew that there will be only one so huge number on one side (asks/bids) I didn't deal in the code
 with comparing numbers that are bigger than 2^53-1.
+
+#### Folders structure
+I really enjoy using colocation pattern described by Kent C Dodds when it comes to organising project and this how I organisied
+files during this assignment https://kentcdodds.com/blog/colocation.
 
 #### Optimisations and improvements
 - Scss is imported as global. Could be changed to CSS-module style approach given more modularity neededpw.

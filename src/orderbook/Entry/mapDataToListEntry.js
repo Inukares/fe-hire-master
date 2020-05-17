@@ -1,6 +1,6 @@
 import React from 'react';
 import { Entry } from './Entry';
-import { ASKS, BIDS } from '../constants';
+import { ASKS, BIDS } from '../../constants';
 
 export const mapDataToListEntry = ({
   data,

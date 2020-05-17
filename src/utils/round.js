@@ -11,11 +11,3 @@ export const round = (number, precision) =>
     : parseFloat(
         Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision)
       ).toFixed(precision);
-
-export const sortData = (data) => {
-  const precision = 3;
-  const scale = 1000;
-  return data.sort(
-    (a, b) => scale * round(b[0], precision) - scale * round(a[0], precision)
-  );
-};
