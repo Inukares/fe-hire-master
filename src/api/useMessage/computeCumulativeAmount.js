@@ -1,19 +1,12 @@
+import { cumsum } from 'd3-array'
+
 export const computeCumulativeAmount = (data, reverse) => {
-  let sum = 0;
-  let newData = [];
-
-  if (reverse) {
-    for (let i = 0; i < data.length; i++) {
-      sum += data[i].amount;
-      newData = [...newData, { cumulativeAmount: sum, ...data[i] }];
-    }
-    return newData;
+  let cumSum = 0;
+  if(reverse) {
+    cumSum = cumsum(data, d => d.amount)
+    return data.map((d, index) => ({...d, cumulativeAmount: cumSum[index] }))
   }
-
-  for (let i = data.length - 1; i >= 0; i--) {
-    sum += data[i].amount;
-    newData = [{ ...data[i], cumulativeAmount: sum }, ...newData];
-  }
-
-  return newData;
+  const reversedData = data.slice().reverse();
+  cumSum = cumsum(reversedData, d => d.amount)
+  return data.map((d, index) => ({...d, cumulativeAmount: cumSum[data.length-1-index] }))
 };

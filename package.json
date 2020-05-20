@@ -39,7 +39,7 @@
     "worker-loader": "^2.0.0"
   },
   "dependencies": {
-    "d3-array": "^2.0.3",
+    "d3-array": "^2.4.0",
     "d3-scale": "^2.1.2",
     "express": "^4.17.1",
     "react": "^16.13.1",
